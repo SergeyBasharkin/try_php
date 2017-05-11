@@ -17,19 +17,13 @@ class Controller_Login extends Controller
 
     function action_index()
     {
-        //$data["login_status"] = "";
 
         if (isset($_POST['login']) && isset($_POST['password'])) {
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            /*
-            Производим аутентификацию, сравнивая полученные значения со значениями прописанными в коде.
-            Такое решение не верно с точки зрения безопсаности и сделано для упрощения примера.
-            Логин и пароль должны храниться в БД, причем пароль должен быть захеширован.
-            */
             if ($user = $this->model->get_user_by_email($login)) {
-			    if ($login === $user["email"] && $password === $user["password"]){
+			    if ($login === $user["email"] && hash('sha256',$password) === $user["password"]){
 			        $data["login_status"] = "access_granted";
 
 			        session_start();
@@ -38,9 +32,11 @@ class Controller_Login extends Controller
 			        $this->view->generate('main_view.php', 'template_view.php', $data);
                 } else {
                     $data["login_status"] = "access_denied";
+                    $this->view->generate('login_view.php', 'template_view.php', $data);
                 }
             }else {
                 $data["login_status"] = "access_denied";
+                $this->view->generate('login_view.php', 'template_view.php', $data);
             }
 
         } else {

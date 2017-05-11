@@ -11,7 +11,11 @@
 <body>
 <div class="row">
     <div class="col-sm-5 col-md-offset-1 ">
-        <?php include 'application/views/' . $content_view; ?>
+        <?php
+        if (isset($content_view)){
+            include 'application/views/' . $content_view;
+        }
+        ?>
     </div>
 </div>
 </body>

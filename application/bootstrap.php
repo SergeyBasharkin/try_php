@@ -1,6 +1,5 @@
 <?php
 
-// подключаем файлы ядра
 require_once 'core/model.php';
 require_once 'core/view.php';
 require_once 'core/controller.php';
@@ -8,4 +7,6 @@ require_once 'core/utils/form_validator.php';
 
 
 require_once 'core/route.php';
-Route::start(); // запускаем маршрутизатор
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+Route::start();

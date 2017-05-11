@@ -30,7 +30,7 @@ class Model_User extends Model
         $sql = 'INSERT INTO users(name,password,email,avatar_url) VALUES(:name,:password,:email,:file)';
 
         $password = hash('sha256',$password);
-        var_dump($password);
+
         $statement=$this->open_connection()->prepare($sql);
         $statement->bindValue(':name',$name);
         $statement->bindValue(':password',$password);
