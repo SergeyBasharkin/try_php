@@ -47,7 +47,11 @@ class Route
 		{
 			include "application/models/".$model_file;
 		}
-
+//
+        foreach (glob("application/models/*.php") as $filename)
+        {
+            include $filename;
+        }
 		// подцепляем файл с классом контроллера
 		$controller_file = strtolower($controller_name).'.php';
 		$controller_path = "application/controllers/".$controller_file;

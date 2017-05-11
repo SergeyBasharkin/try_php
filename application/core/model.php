@@ -13,6 +13,12 @@ class Model
 	*/
 
 	// метод выборки данных
+
+    protected function open_connection()
+    {
+        return new PDO('pgsql:dbname=php_dev;host=localhost;user=sergey;password=3336754');
+    }
+
 	public function get_data()
 	{
 		// todo
