@@ -20,23 +20,16 @@ class Route
 			$action_name = $routes[2];
 		}
 
-		$model_name = 'Model_'.$controller_name;
 		$controller_name = 'Controller_'.$controller_name;
 		$action_name = 'action_'.$action_name;
 
 
 
-		$model_file = strtolower($model_name).'.php';
-		$model_path = "application/models/".$model_file;
-		if(file_exists($model_path))
-		{
-			include "application/models/".$model_file;
-		}
-//
         foreach (glob("application/models/*.php") as $filename)
         {
             include $filename;
         }
+
 		$controller_file = strtolower($controller_name).'.php';
 		$controller_path = "application/controllers/".$controller_file;
 		if(file_exists($controller_path))

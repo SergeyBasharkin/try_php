@@ -2,15 +2,20 @@
 
 class Model
 {
+    private $pdo;
 
-    protected function open_connection()
+    protected function get_pdo()
     {
-        $pdo = new PDO("pgsql:dbname=".$_ENV["DB_NAME"].";host=localhost;user=".$_ENV["DB_USERNAME"].";password=".$_ENV["DB_PASSWORD"]);
-        return $pdo;
+         return $this->pdo;
     }
 
 	public function get_data()
 	{
 		// todo
 	}
+
+	function __construct()
+    {
+        $this->pdo=DB_Connection::getInstance();
+    }
 }
