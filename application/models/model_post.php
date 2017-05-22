@@ -38,6 +38,7 @@ class Model_Post extends Model
             $posts = [];
             foreach ($result as $post){
                 $post["user"] = $userModel->get_user_by_id($post["user_id"]);
+                $post["comments"] = $this->get_comments($post["id"]);
                 $posts[] = $post;
             }
             return $posts;
@@ -66,12 +67,21 @@ class Model_Post extends Model
 
     private function get_comments($id)
     {
+        $userModel = new Model_User();
+
+
         $sql = 'SELECT * FROM posts WHERE parent_id = :id';
         $statement = $this->get_pdo()->prepare($sql);
         $statement->bindValue("id", $id);
         if ($statement->execute()) {
             $result = $statement->fetchAll();
-            return $result;
+            $posts = [];
+            foreach ($result as $post){
+                $post["user"] = $userModel->get_user_by_id($post["user_id"]);
+                $post["comments"] = $this->get_comments($post["id"]);
+                $posts[] = $post;
+            }
+            return $posts;
         }else{
             return false;
         }

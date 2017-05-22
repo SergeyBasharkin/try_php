@@ -15,7 +15,6 @@
         <div class="media-body">
             <h4 class="media-heading"><?= $post["user"]["name"] ?></h4>
             <?= $post["body"] ?>
-            <a href="#" id="hide"> show</a>
             <form action="/post" method="post" id="comment">
                 <div class="form-group">
                     <label for="exampleInputbody1">Body</label>
@@ -28,11 +27,12 @@
 
         </div>
     </div>
-<!--    --><?php //while (isset($post["comments"]["parent_id"])) { ?>
-<!--        <div style="margin-left: 25px ">-->
-<!--            -->
-<!--        </div>-->
-<!--    --><?php //} ?>
+    <?php if (isset($post["comments"])) foreach ($post["comments"] as $comment) { ?>
+        <div style="margin-left: 25px ">
+            <h4 class="media-heading"><?= $comment["user"]["name"] ?></h4>
+            <?= $comment["body"] ?>
+        </div>
+    <?php } ?>
 <?php } ?>
 
 <form action="/post" method="post">
@@ -42,4 +42,6 @@
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+
+
 
