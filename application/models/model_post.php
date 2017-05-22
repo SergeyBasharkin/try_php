@@ -31,7 +31,7 @@ class Model_Post extends Model
     {
         $userModel = new Model_User();
 
-        $sql = 'SELECT * FROM posts';
+        $sql = 'SELECT * FROM posts WHERE parent_id IS NULL';
         $statement = $this->get_pdo()->prepare($sql);
         if ($statement->execute()) {
             $result = $statement->fetchAll();
@@ -46,6 +46,11 @@ class Model_Post extends Model
         }
     }
 
+    public function build_post($post){
+        $post["comments"] = $this->get_comments($post["id"]);
+    }
+
+
     private function get_all_posts_by_id($parent_id)
     {
         $sql = 'SELECT * FROM posts WHERE parent_id = :id';
@@ -53,6 +58,19 @@ class Model_Post extends Model
         $statement->bindValue("id", $parent_id);
         if ($statement->execute()) {
             $result = $statement->fetch();
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    private function get_comments($id)
+    {
+        $sql = 'SELECT * FROM posts WHERE parent_id = :id';
+        $statement = $this->get_pdo()->prepare($sql);
+        $statement->bindValue("id", $id);
+        if ($statement->execute()) {
+            $result = $statement->fetchAll();
             return $result;
         }else{
             return false;

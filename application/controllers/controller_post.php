@@ -25,7 +25,7 @@ class Controller_Post extends Controller
             $data["errors"] = $this->post_validator->validate();
             if (empty($data["errors"])) {
 
-                $this->model->save_post($_POST["body"]);
+                $this->model->save_post($_POST["body"], $_POST["id"]);
             }
         }
         $data["posts"] = $this->model->get_all_posts();

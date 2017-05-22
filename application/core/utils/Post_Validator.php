@@ -16,6 +16,9 @@ class Post_Validator
         if (!isset($_SESSION["current_user"])){
             $errors[]= "you must sing up";
         }
+        if (!isset($_POST["id"])){
+            $errors[]="sad";
+        }
         return $errors;
     }
 }
