@@ -79,4 +79,18 @@ class Model_User extends Model
 
         return $statement->execute();
     }
+
+    public function get_user_by_id($user_id)
+    {
+        $sql = 'SELECT * FROM users WHERE id = :id';
+
+        $stm = $this->get_pdo()->prepare($sql);
+        $stm->bindValue(":id", $user_id);
+
+        if ( $stm->execute()){
+            return $stm->fetch();
+        }else{
+            return false;
+        }
+    }
 }

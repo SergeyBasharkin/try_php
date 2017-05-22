@@ -20,7 +20,7 @@ class Controller_Registration extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $validator = new Form_Validator();
 
-            $resource = 'public/avatars/';
+            $resource =     'public/avatars/';
             $filename = uniqid() . $_FILES['image']['name'];
             $uploadfile = $resource . $filename;
 

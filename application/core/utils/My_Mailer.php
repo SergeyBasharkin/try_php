@@ -17,8 +17,8 @@ class My_Mailer
     public function __construct()
     {
         $this->transport = $transport = Swift_SmtpTransport::newInstance($_ENV["MAILER_HOST"], $_ENV["MAILER_PORT"], $_ENV["MAILER_SECURITY"])
-            ->setUsername("safinr18@gmail.com")
-            ->setPassword("NiRyks58redle");
+            ->setUsername($_ENV["MAILER_LOGIN"])
+            ->setPassword($_ENV["MAILER_PASSWORD"]);
     }
 
 
@@ -29,7 +29,7 @@ class My_Mailer
         $message->setSubject('Feedback')
             ->setFrom($_ENV["MAILER_LOGIN"])
             ->setTo($_ENV["MAILER_RECEIVE"])
-            ->setBody($text);
+            ->setBody("From:".$email."\n".$text);
 
         $mailer = Swift_Mailer::newInstance($this->transport);
 

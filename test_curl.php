@@ -48,4 +48,4 @@ function urlLooper($url)
 }
 
 $url = 'http://www.justfundraising.com/';
-urlLooper($url, 5);
+urlLooper($url);
